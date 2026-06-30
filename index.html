@@ -77,20 +77,12 @@
   .t-head{display:flex; align-items:flex-start; gap:14px; padding:14px 16px}
   .t-check{margin-top:3px}
   .t-check input{width:18px; height:18px; accent-color:var(--blue); cursor:pointer}
-  .t-check{margin-top:3px}
+  .t-check{display:flex; align-items:center; padding-top:2px}
   .t-check input{width:18px; height:18px; accent-color:var(--blue); cursor:pointer}
-  .actionbar{position:sticky; top:0; z-index:5; background:var(--navy); color:#fff; border-radius:8px; padding:12px 16px; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
-  .actionbar.hidden{display:none}
-  .actionbar .ab-info{font-size:13.5px}
-  .actionbar .ab-info b{font-size:15px}
-  .actionbar .ab-btns{display:flex; gap:8px; flex-wrap:wrap}
-  .ab-btn{background:var(--blue); color:#fff; border:none; border-radius:6px; padding:8px 14px; font-size:13.5px; font-weight:600; cursor:pointer}
-  .ab-btn:hover{background:var(--cyan)}
-  .ab-btn.ghost{background:transparent; border:1px solid rgba(255,255,255,.35); color:#fff}
-  .ab-btn.ghost:hover{background:rgba(255,255,255,.12)}
   .t-rank{font-size:13px; font-weight:600; color:#fff; background:var(--faint); border-radius:12px; min-width:30px; height:22px; display:flex; align-items:center; justify-content:center; margin-top:2px}
   .tender.top .t-rank{background:var(--blue)}
   .tender.inv.top .t-rank{background:var(--amber)}
+  .tender.sel{background:#f5fbfe; border-color:var(--cyan); box-shadow:0 0 0 1px var(--cyan)}
   .t-main{flex:1; min-width:0}
   .t-subject{font-size:15.5px; font-weight:600; color:var(--ink); line-height:1.35; margin-bottom:5px}
   .t-facts{display:flex; flex-wrap:wrap; gap:4px 16px; font-size:12.5px; color:var(--muted); margin-bottom:8px}
@@ -111,80 +103,36 @@
   .tender.open .t-desc{display:block}
   mark{background:var(--hit); padding:0 2px; border-radius:2px; color:var(--navy); font-weight:600}
 
-  /* selection */
-  .t-check{display:flex; align-items:center; padding-top:2px}
-  .t-check input{width:18px; height:18px; accent-color:var(--blue); cursor:pointer}
+  /* action bar — hidden by default, shown when something is selected */
   .actionbar{position:sticky; bottom:0; z-index:30; display:none; align-items:center; justify-content:space-between; gap:14px;
     background:var(--navy); color:#fff; border-radius:8px; padding:12px 16px; margin-top:8px; box-shadow:0 6px 24px rgba(23,46,55,.25)}
+  .actionbar.show{display:flex}
   .actionbar .sel{font-size:14px}
-  .actionbar .sel b{font-size:16px}
-  .actionbar .ab-btns{display:flex; gap:8px}
-  .actionbar button{border:none; border-radius:6px; padding:9px 14px; font-size:13.5px; font-weight:600; cursor:pointer}
-  .ab-primary{background:var(--cyan); color:#fff}
-  .ab-primary:hover{background:#0496c4}
-  .ab-ghost{background:transparent; color:#cfe6ef; border:1px solid #3a5a66 !important}
-  .ab-ghost:hover{background:#21404b}
+  .actionbar .sel b{font-size:16px; color:var(--sky)}
+  .actionbar .ab-btns{display:flex; gap:8px; flex-wrap:wrap}
+  .actionbar button{border:none; border-radius:6px; padding:9px 14px; font-size:13.5px; font-weight:600; cursor:pointer; font-family:var(--sans)}
+  .ab-primary{background:var(--cyan); color:#06303f}
+  .ab-primary:hover{background:#3ec4ec}
+  .ab-ghost{background:transparent; color:#cfe6ef; border:1px solid #3a5a66}
+  .ab-ghost:hover{background:#21404b; color:#fff}
 
+  /* modal — hidden by default, shown via .show */
   .modal-bg{position:fixed; inset:0; background:rgba(23,46,55,.55); display:none; align-items:center; justify-content:center; z-index:50; padding:24px}
   .modal-bg.show{display:flex}
-  .modal{background:#fff; border-radius:10px; max-width:760px; width:100%; max-height:86vh; display:flex; flex-direction:column; overflow:hidden}
+  .modal{background:#fff; border-radius:10px; max-width:780px; width:100%; max-height:88vh; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.3)}
   .modal-head{padding:16px 20px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between}
   .modal-head h3{margin:0; font-size:17px; color:var(--navy)}
-  .modal-head .x{cursor:pointer; color:var(--faint); font-size:22px; line-height:1; background:none; border:none}
-  .modal-body{padding:16px 20px; overflow:auto}
-  .modal-body p.lead{margin:0 0 12px; font-size:13.5px; color:var(--muted)}
-  .modal-body textarea{min-height:280px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12.5px; line-height:1.5}
-  .modal-foot{padding:14px 20px; border-top:1px solid var(--line); display:flex; gap:8px; justify-content:flex-end; align-items:center}
-  .copied{font-size:12.5px; color:var(--good); margin-right:auto; opacity:0; transition:opacity .2s}
-  .copied.show{opacity:1}
-
-  /* selection */
-  .t-check{display:flex; align-items:center; padding-top:1px}
-  .t-check input{width:18px; height:18px; accent-color:var(--blue); cursor:pointer}
-  .tender.sel{background:#f5fbfe; border-color:var(--cyan); box-shadow:0 0 0 1px var(--cyan)}
-  .selbar{position:sticky; top:0; z-index:20; display:none; align-items:center; gap:12px; flex-wrap:wrap;
-    background:var(--navy); color:#fff; border-radius:8px; padding:11px 16px; margin-bottom:14px; box-shadow:0 4px 16px rgba(23,46,55,.2)}
-  .selbar.on{display:flex}
-  .selbar .cnt{font-size:14px; font-weight:600}
-  .selbar .cnt b{color:var(--sky); font-size:16px}
-  .selbar .sp{flex:1}
-  .selbar button{border:none; border-radius:6px; padding:8px 14px; font-size:13.5px; font-weight:600; cursor:pointer; font-family:var(--sans)}
-  .selbar .prep{background:var(--cyan); color:#06303f}
-  .selbar .prep:hover{background:#3ec4ec}
-  .selbar .ghost{background:transparent; color:#cdd9dd; border:1px solid #3a525c}
-  .selbar .ghost:hover{background:#21424e; color:#fff}
-
-  /* modal */
-  .modal{position:fixed; inset:0; background:rgba(23,46,55,.55); display:none; align-items:center; justify-content:center; z-index:50; padding:24px}
-  .modal.show{display:flex}
-  .modal-box{background:#fff; border-radius:10px; max-width:800px; width:100%; max-height:88vh; display:flex; flex-direction:column; overflow:hidden}
-  .modal-head{padding:16px 20px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between}
-  .modal-head h3{margin:0; font-size:17px; color:var(--navy)}
-  .modal-head .x{border:none; background:none; font-size:24px; color:var(--faint); cursor:pointer; line-height:1}
+  .modal-head .x{cursor:pointer; color:var(--faint); font-size:24px; line-height:1; background:none; border:none}
   .modal-body{padding:16px 20px; overflow:auto}
   .modal-body p.lead{margin:0 0 12px; font-size:13.5px; color:var(--muted); line-height:1.5}
   .modal-body textarea{width:100%; min-height:300px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; line-height:1.55; border:1px solid var(--line); border-radius:6px; padding:10px}
-  .modal-foot{padding:14px 20px; border-top:1px solid var(--line); display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap}
-  .modal-foot button{border:none; border-radius:6px; padding:10px 16px; font-size:14px; font-weight:600; cursor:pointer}
-  .modal-foot .copy{background:var(--blue); color:#fff} .modal-foot .copy:hover{background:#0a6ea1}
-  .modal-foot .copy.done{background:var(--good)}
-  .modal-foot .sec{background:var(--page); color:var(--ink); border:1px solid var(--line)}
+  .modal-foot{padding:14px 20px; border-top:1px solid var(--line); display:flex; gap:8px; justify-content:flex-end; align-items:center; flex-wrap:wrap}
+  .copied{font-size:12.5px; color:var(--good); margin-right:auto; opacity:0; transition:opacity .2s}
+  .copied.show{opacity:1}
 
   footer{margin-top:46px; padding-top:14px; border-top:1px solid var(--line); font-size:12px; color:var(--faint); text-align:center}
   .spin{display:inline-block; width:14px; height:14px; border:2px solid #fff; border-top-color:transparent; border-radius:50%; animation:sp .7s linear infinite; vertical-align:-2px; margin-right:7px}
   @keyframes sp{to{transform:rotate(360deg)}}
-
-  .modal-bg{position:fixed; inset:0; background:rgba(23,46,55,.55); z-index:50; display:none; align-items:center; justify-content:center; padding:24px}
-  .modal-bg.show{display:flex}
-  .modal{background:#fff; border-radius:10px; max-width:760px; width:100%; max-height:86vh; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.3)}
-  .modal-head{padding:18px 20px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between}
-  .modal-head h3{margin:0; font-size:17px; color:var(--navy)}
-  .modal-head .x{cursor:pointer; color:var(--faint); font-size:22px; line-height:1; border:none; background:none}
-  .modal-body{padding:18px 20px; overflow:auto}
-  .modal-body p.lead{margin:0 0 12px; font-size:13.5px; color:var(--muted)}
-  .modal-body textarea{min-height:300px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12.5px; line-height:1.5}
-  .modal-foot{padding:14px 20px; border-top:1px solid var(--line); display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap}
-  .copied{color:var(--good); font-size:13px; align-self:center; margin-right:auto}
 </style>
 </head>
 <body>
@@ -292,23 +240,6 @@
   </div>
 
   <footer>Energynat Obrót · Skaner przetargów — narzędzie wewnętrzne. Działa w całości w przeglądarce; żaden plik nie jest wysyłany na serwer.</footer>
-</div>
-
-<div class="modal" id="modal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <h3>Pakiet do analizy — wklej Claude'owi</h3>
-      <button class="x" id="modalX">×</button>
-    </div>
-    <div class="modal-body">
-      <p class="lead">Skopiuj poniższy tekst i wklej go w rozmowie z Claude (lub Claude w przeglądarce). Claude otworzy każdy link i przygotuje streszczenie: termin, wadium, warunki wobec wykonawcy, kryteria oceny, zabezpieczenie i wartość.</p>
-      <textarea id="promptArea" spellcheck="false" readonly></textarea>
-    </div>
-    <div class="modal-foot">
-      <button class="sec" id="modalClose">Zamknij</button>
-      <button class="copy" id="copyBtn">Kopiuj do schowka</button>
-    </div>
-  </div>
 </div>
 
 <script>
@@ -641,7 +572,7 @@ $('#sortsel').addEventListener('change',renderTab);
 /* ---- selection + prompt generation ---- */
 function updateActionBar(){
   const n=selected.size;
-  $('#actionbar').style.display = n?'flex':'none';
+  $('#actionbar').classList.toggle('show', n>0);
   $('#selcount').textContent=n;
   $('#selword').textContent=plural(n,'pozycję','pozycje','pozycji');
 }
