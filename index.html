@@ -8,12 +8,11 @@
 <style>
   :root{
     --navy:#172E37; --blue:#0080BF; --cyan:#03ACDF; --sky:#56D0FF;
-    --navy-soft:#e8edef; --blue-soft:#e2f1f8; --sky-soft:#eaf8ff;
+    --blue-soft:#e2f1f8; --sky-soft:#eaf8ff;
     --ink:#1d2a30; --muted:#5f6f76; --faint:#93a1a7;
     --line:#dde6ea; --line-soft:#eaf0f2;
     --page:#f3f6f7; --card:#ffffff;
-    --good:#0e7a52; --mid:#9a7a1f; --low:#b23b3b;
-    --hit:#d8f1fb;
+    --good:#0e7a52; --hit:#d8f1fb;
     --sans:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box}
@@ -21,31 +20,27 @@
   body{background:var(--page); color:var(--ink); font-family:var(--sans); font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased}
   .wrap{max-width:1120px; margin:0 auto; padding:0 24px 80px}
 
-  .topbar{background:#fff; margin:0 -24px 0; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; border-bottom:1px solid var(--line)}
-  .topbar .left{display:flex; align-items:center; gap:18px}
+  .topbar{background:#fff; margin:0 -24px; padding:14px 24px; display:flex; align-items:center; gap:18px; border-bottom:1px solid var(--line)}
   .topbar img.obrot{height:38px; display:block}
   .topbar .title{color:var(--navy); border-left:1px solid var(--line); padding-left:18px}
   .topbar .title .t1{font-size:17px; font-weight:600; letter-spacing:.3px}
   .topbar .title .t2{font-size:12px; color:var(--blue); letter-spacing:.5px; text-transform:uppercase}
-  .topbar .one{display:flex; align-items:center}
-  .topbar .one .badge{background:var(--navy); border-radius:50%; padding:7px; display:flex}
-  .topbar .one img{height:48px; display:block}
 
   header.intro{padding:24px 0 4px}
   header.intro h1{font-size:26px; font-weight:600; margin:0 0 6px; color:var(--navy)}
-  header.intro p{font-size:14.5px; color:var(--muted); margin:0; max-width:720px}
+  header.intro p{font-size:14.5px; color:var(--muted); margin:0; max-width:760px}
 
-  .grid{display:grid; grid-template-columns:310px 1fr; gap:26px; margin-top:24px; align-items:start}
-  @media(max-width:840px){.grid{grid-template-columns:1fr}}
+  .grid{display:grid; grid-template-columns:320px 1fr; gap:26px; margin-top:24px; align-items:start}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
 
   .panel{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:18px}
   .panel h2{font-size:16px; font-weight:600; margin:0 0 4px; color:var(--navy)}
   .panel .hint{font-size:12.5px; color:var(--faint); margin:0 0 14px; line-height:1.45}
 
-  textarea{width:100%; min-height:150px; resize:vertical; padding:10px; font-family:var(--sans); font-size:14px; line-height:1.5; border:1px solid var(--line); border-radius:6px; background:#fff; color:var(--ink)}
+  textarea{width:100%; min-height:200px; resize:vertical; padding:10px; font-family:var(--sans); font-size:14px; line-height:1.6; border:1px solid var(--line); border-radius:6px; background:#fff; color:var(--ink)}
   textarea:focus,input:focus{outline:none; border-color:var(--blue)}
-  .toggle{display:flex; gap:8px; align-items:center; margin-top:12px; font-size:13.5px}
-  .toggle input{width:16px; height:16px; accent-color:var(--blue)}
+  .toggle{display:flex; gap:8px; align-items:flex-start; margin-top:12px; font-size:13px; color:var(--muted)}
+  .toggle input{width:16px; height:16px; accent-color:var(--blue); margin-top:1px}
 
   .drop{margin-top:6px; border:1.5px dashed var(--line); border-radius:8px; padding:24px 16px; text-align:center; background:#fbfdfe; cursor:pointer; transition:.15s}
   .drop:hover,.drop.over{border-color:var(--blue); background:var(--sky-soft)}
@@ -59,131 +54,134 @@
   .btn.ghost{background:transparent; color:var(--muted); border:1px solid var(--line); margin-top:10px}
   .btn.ghost:hover{background:var(--page); color:var(--ink)}
 
-  .results-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:10px}
+  .results-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:6px}
   .results-head h2{font-size:19px; font-weight:600; margin:0; color:var(--navy)}
   .results-head .meta{font-size:13px; color:var(--muted)}
+  .filterbar{display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 14px}
+  .filterbar input{flex:1; min-width:160px; height:36px; padding:0 10px; border:1px solid var(--line); border-radius:6px; font-size:13.5px}
+  .filterbar select{height:36px; padding:0 8px; border:1px solid var(--line); border-radius:6px; font-size:13.5px; background:#fff}
 
   .empty{border:1px solid var(--line-soft); border-radius:8px; background:var(--card); padding:46px 28px; text-align:center; color:var(--faint)}
   .empty .lead{font-size:17px; color:var(--muted); margin-bottom:6px; font-weight:600}
 
-  .doc{background:var(--card); border:1px solid var(--line); border-radius:8px; margin-bottom:14px; overflow:hidden}
-  .doc.rank-top{border-color:var(--blue); box-shadow:0 0 0 1px var(--blue)}
-  .doc-head{display:flex; align-items:flex-start; gap:14px; padding:14px 16px; cursor:pointer}
-  .doc-head:hover{background:#fafdfe}
-  .rankno{font-size:22px; font-weight:600; color:var(--faint); min-width:30px; text-align:center; line-height:1.3}
-  .doc.rank-top .rankno{color:var(--blue)}
-  .doc-main{flex:1; min-width:0}
-  .doc-subject{font-size:15.5px; font-weight:600; color:var(--ink); line-height:1.35; margin-bottom:3px}
-  .doc-fn{font-size:12px; color:var(--faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-  .doc-quick{display:flex; flex-wrap:wrap; gap:10px 16px; margin-top:8px; font-size:12.5px; align-items:center}
-  .doc-quick .qi{display:flex; align-items:center; gap:5px; color:var(--muted)}
-  .doc-quick .qi b{color:var(--ink); font-weight:600}
-  .linkpill{display:inline-flex; align-items:center; gap:5px; background:var(--blue-soft); color:#075e8a; border:1px solid #bfe3f2; border-radius:14px; padding:3px 11px; font-size:12.5px; font-weight:600; text-decoration:none}
-  .linkpill:hover{background:#d2ebf6}
-  .nolink{color:var(--faint); font-size:12px; font-style:italic}
-  .score{text-align:right; min-width:84px}
-  .score .num{font-size:25px; font-weight:600; line-height:1}
-  .score .lbl{font-size:10px; text-transform:uppercase; letter-spacing:.6px; color:var(--faint)}
-  .num.s-good{color:var(--good)} .num.s-mid{color:var(--mid)} .num.s-low{color:var(--low)}
-  .chev{color:var(--faint); font-size:12px; transition:transform .15s; padding-top:6px}
-  .doc.open .chev{transform:rotate(90deg)}
-
-  .doc-body{display:none; border-top:1px solid var(--line-soft); padding:16px}
-  .doc.open .doc-body{display:block}
-  .section-lbl{font-size:11px; text-transform:uppercase; letter-spacing:.5px; color:var(--faint); margin:0 0 8px}
-  .kwrow{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px}
-  .kw{font-size:12.5px; padding:3px 9px; border-radius:11px; border:1px solid var(--line)}
-  .kw.found{background:var(--blue-soft); border-color:#bfe3f2; color:#075e8a}
-  .kw.miss{background:var(--page); color:var(--faint)}
-  .snip{padding:8px 0; border-top:1px dashed var(--line-soft); color:var(--muted); font-size:13.5px; line-height:1.7}
-  .snip:first-child{border-top:none}
+  .tender{background:var(--card); border:1px solid var(--line); border-radius:8px; margin-bottom:12px; overflow:hidden}
+  .tender.top{border-color:var(--blue); box-shadow:0 0 0 1px var(--blue)}
+  .t-head{display:flex; align-items:flex-start; gap:14px; padding:14px 16px}
+  .t-rank{font-size:13px; font-weight:600; color:#fff; background:var(--faint); border-radius:12px; min-width:30px; height:22px; display:flex; align-items:center; justify-content:center; margin-top:2px}
+  .tender.top .t-rank{background:var(--blue)}
+  .t-main{flex:1; min-width:0}
+  .t-subject{font-size:15.5px; font-weight:600; color:var(--ink); line-height:1.35; margin-bottom:5px}
+  .t-facts{display:flex; flex-wrap:wrap; gap:4px 16px; font-size:12.5px; color:var(--muted); margin-bottom:8px}
+  .t-facts .f b{color:var(--ink); font-weight:600}
+  .t-kw{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:4px}
+  .kw{font-size:12px; padding:2px 9px; border-radius:11px; background:var(--blue-soft); border:1px solid #bfe3f2; color:#075e8a; font-weight:600}
+  .t-side{display:flex; flex-direction:column; align-items:flex-end; gap:8px; min-width:120px}
+  .hitcount{font-size:24px; font-weight:600; color:var(--good); line-height:1}
+  .hitcount span{font-size:11px; color:var(--faint); font-weight:400; display:block; text-align:right; text-transform:uppercase; letter-spacing:.5px}
+  .linkpill{display:inline-flex; align-items:center; gap:5px; background:var(--blue); color:#fff; border-radius:6px; padding:6px 12px; font-size:12.5px; font-weight:600; text-decoration:none; white-space:nowrap}
+  .linkpill:hover{background:#0a6ea1}
+  .nolink{color:var(--faint); font-size:11.5px; font-style:italic}
+  .t-expand{font-size:12.5px; color:var(--blue); cursor:pointer; padding:0 16px 12px; user-select:none}
+  .t-expand:hover{text-decoration:underline}
+  .t-desc{display:none; border-top:1px solid var(--line-soft); padding:12px 16px; font-size:13.5px; line-height:1.7; color:var(--muted)}
+  .tender.open .t-desc{display:block}
   mark{background:var(--hit); padding:0 2px; border-radius:2px; color:var(--navy); font-weight:600}
-  .alllinks{margin-top:14px}
-  .alllinks a{display:block; font-size:12.5px; color:#075e8a; margin:3px 0; word-break:break-all}
 
   footer{margin-top:46px; padding-top:14px; border-top:1px solid var(--line); font-size:12px; color:var(--faint); text-align:center}
   .spin{display:inline-block; width:14px; height:14px; border:2px solid #fff; border-top-color:transparent; border-radius:50%; animation:sp .7s linear infinite; vertical-align:-2px; margin-right:7px}
   @keyframes sp{to{transform:rotate(360deg)}}
+  .progress{font-size:12.5px; color:var(--muted); margin-top:8px}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="topbar">
-    <div class="left">
-      <img class="obrot" src="logo-energynat-obrot.png" alt="Energynat Obrót">
-      <div class="title">
-        <div class="t1">Skaner przetargów</div>
-        <div class="t2">Analiza lokalna</div>
-      </div>
+    <img class="obrot" src="logo-energynat-obrot.png" alt="Energynat Obrót">
+    <div class="title">
+      <div class="t1">Skaner przetargów</div>
+      <div class="t2">Analiza lokalna</div>
     </div>
   </div>
 
   <header class="intro">
-    <h1>Wyłap najkorzystniejsze postępowania</h1>
-    <p>Wgraj raporty PDF z portalu przetargowego. Narzędzie odczyta nazwę zamówienia, znajdzie link do postępowania, oceni dopasowanie do Twoich słów kluczowych i ułoży ranking. Wszystko liczy się w tej przeglądarce — pliki nie opuszczają komputera.</p>
+    <h1>Wyłap interesujące postępowania z raportu</h1>
+    <p>Wgraj dobowy raport PDF z platformy przetargowej. Narzędzie rozbije go na pojedyncze postępowania, dopasuje do Twoich słów kluczowych i pokaże tylko te trafione — z nazwą, organizatorem, województwem, terminem i linkiem prosto do ogłoszenia. Wszystko liczy się w tej przeglądarce.</p>
   </header>
 
   <div class="grid">
     <div>
       <div class="panel">
         <h2>Słowa kluczowe</h2>
-        <p class="hint">Jedno na linię. Waga po dwukropku, np. <i>klaster energii:3</i>. Domyślnie 1.</p>
-        <textarea id="kw" spellcheck="false">PV:2
-fotowoltaika:2
+        <p class="hint">Jedno na linię. Wszystkie tak samo ważne. Postępowanie trafia na listę, jeśli pasuje choć jedno.</p>
+        <textarea id="kw" spellcheck="false">fotowoltaika
+PV
 farma PV
-klaster energii:3
-spółdzielnia energetyczna:3
-OZE:2
-magazyn energii:2
+instalacja PV
+OZE
+odnawialne źródła energii
+magazyn energii
 BESS
-ciepłownictwo:2
-transformacja ciepłownictwa:3
+klaster energii
+spółdzielnia energetyczna
+ciepłownictwo
+sieć ciepłownicza
 audyt energetyczny
-KPO
-FEnIKS
-modernizacja
-przyłączenie</textarea>
+efektywność energetyczna
+przyłączenie
+stacja transformatorowa
+pompa ciepła
+biogazownia</textarea>
         <div class="toggle">
-          <input type="checkbox" id="whole">
-          <label for="whole">Dopasuj całe słowa (nie fragmenty)</label>
+          <input type="checkbox" id="whole" checked>
+          <label for="whole">Dopasuj całe słowa (zalecane — eliminuje fałszywe trafienia, np. „PV” w kodzie „CPV”)</label>
         </div>
       </div>
 
       <div class="panel" style="margin-top:18px">
-        <h2>Raporty PDF</h2>
-        <p class="hint">Przeciągnij pliki tutaj albo kliknij, by wybrać. Można wiele naraz.</p>
+        <h2>Raport PDF</h2>
+        <p class="hint">Przeciągnij dobowy raport tutaj albo kliknij, by wybrać. Możesz wgrać kilka raportów naraz.</p>
         <div class="drop" id="drop">
-          <div class="big">Upuść PDF-y tutaj</div>
+          <div class="big">Upuść raport PDF tutaj</div>
           <div class="lil">albo kliknij, aby wybrać z dysku</div>
           <input type="file" id="file" accept="application/pdf" multiple hidden>
         </div>
         <div class="files" id="filelist"></div>
-        <button class="btn" id="run" disabled>Przeszukaj i oceń</button>
-        <button class="btn ghost" id="clear">Wyczyść wszystko</button>
+        <button class="btn" id="run" disabled>Przeszukaj raport</button>
+        <button class="btn ghost" id="clear">Wyczyść</button>
+        <div class="progress" id="progress"></div>
       </div>
     </div>
 
     <div>
       <div class="results-head">
-        <h2>Ranking</h2>
+        <h2>Trafione postępowania</h2>
         <span class="meta" id="meta"></span>
+      </div>
+      <div class="filterbar" id="filterbar" style="display:none">
+        <input type="text" id="textfilter" placeholder="Filtruj po nazwie, organizatorze, województwie…">
+        <select id="sortsel">
+          <option value="hits">Sortuj: najwięcej trafień</option>
+          <option value="termin">Sortuj: najbliższy termin</option>
+          <option value="woj">Sortuj: województwo</option>
+        </select>
       </div>
       <div id="results">
         <div class="empty">
           <div class="lead">Brak wyników</div>
-          <div>Wgraj raporty i kliknij „Przeszukaj i oceń”, aby zobaczyć ranking z linkami do postępowań.</div>
+          <div>Wgraj raport i kliknij „Przeszukaj raport”, aby zobaczyć dopasowane postępowania.</div>
         </div>
       </div>
     </div>
   </div>
 
-  <footer>Energynat Obrót · Skaner przetargów — narzędzie wewnętrzne. Działa w całości w przeglądarce; żaden plik ani tekst nie jest wysyłany na serwer.</footer>
+  <footer>Energynat Obrót · Skaner przetargów — narzędzie wewnętrzne. Działa w całości w przeglądarce; żaden plik nie jest wysyłany na serwer.</footer>
 </div>
 
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 const $ = s => document.querySelector(s);
-let docs = [];
+let files = [];
+let allMatches = [];
 
 const drop=$('#drop'), fileInput=$('#file');
 drop.addEventListener('click',()=>fileInput.click());
@@ -192,188 +190,193 @@ drop.addEventListener('click',()=>fileInput.click());
 drop.addEventListener('drop',ev=>handleFiles(ev.dataTransfer.files));
 fileInput.addEventListener('change',()=>handleFiles(fileInput.files));
 
-async function handleFiles(list){
-  const arr=[...list].filter(f=>f.type==='application/pdf'||f.name.toLowerCase().endsWith('.pdf'));
-  for(const f of arr){
-    if(docs.some(d=>d.name===f.name&&d.size===f.size)) continue;
-    docs.push({name:f.name,size:f.size,text:null,file:f});
+function handleFiles(list){
+  for(const f of [...list].filter(f=>f.type==='application/pdf'||f.name.toLowerCase().endsWith('.pdf'))){
+    if(files.some(d=>d.name===f.name&&d.size===f.size)) continue;
+    files.push(f);
   }
   renderFileList();
 }
 function renderFileList(){
   const el=$('#filelist');
-  if(!docs.length){el.textContent='';$('#run').disabled=true;return;}
-  el.innerHTML=docs.map(d=>`• ${escapeHtml(d.name)} <span style="color:var(--faint)">(${(d.size/1024).toFixed(0)} KB)</span>`).join('<br>');
+  if(!files.length){el.textContent='';$('#run').disabled=true;return;}
+  el.innerHTML=files.map(f=>`• ${escapeHtml(f.name)} <span style="color:var(--faint)">(${(f.size/1048576).toFixed(1)} MB)</span>`).join('<br>');
   $('#run').disabled=false;
 }
 $('#clear').addEventListener('click',()=>{
-  docs=[];fileInput.value='';renderFileList();
-  $('#results').innerHTML=`<div class="empty"><div class="lead">Brak wyników</div><div>Wgraj raporty i kliknij „Przeszukaj i oceń”, aby zobaczyć ranking z linkami do postępowań.</div></div>`;
+  files=[];allMatches=[];fileInput.value='';renderFileList();$('#progress').textContent='';
+  $('#filterbar').style.display='none';
+  $('#results').innerHTML=`<div class="empty"><div class="lead">Brak wyników</div><div>Wgraj raport i kliknij „Przeszukaj raport”, aby zobaczyć dopasowane postępowania.</div></div>`;
   $('#meta').textContent='';
 });
 
 function parseKeywords(){
-  return $('#kw').value.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{
-    const m=l.match(/^(.*?):(\d+(?:\.\d+)?)\s*$/);
-    return m?{term:m[1].trim(),weight:parseFloat(m[2])}:{term:l,weight:1};
-  }).filter(k=>k.term);
-}
-async function extractText(d){
-  if(d.text!==null) return d.text;
-  const buf=await d.file.arrayBuffer();
-  const pdf=await pdfjsLib.getDocument({data:buf}).promise;
-  let out='';
-  for(let p=1;p<=pdf.numPages;p++){
-    const page=await pdf.getPage(p);
-    const c=await page.getTextContent();
-    out+=c.items.map(i=>i.str).join(' ')+'\n';
-  }
-  d.text=out; return out;
+  return [...new Set($('#kw').value.split('\n').map(l=>l.trim()).filter(Boolean))];
 }
 function escRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
 function escapeHtml(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 
-function extractLinks(text){
-  const re=/https?:\/\/[^\s<>"')\]]+/gi;
-  const raw=text.match(re)||[];
-  const clean=[...new Set(raw.map(u=>u.replace(/[.,;:)]+$/,'')))];
-  const priority=/ezamowienia|ezamowienie|platformazakupowa|smartpzp|logintrade|miniportal|ted\.europa|bzp|e-propublico|josephine|eb2b|oneplace|marketplanet|wynegocjuj/i;
-  clean.sort((a,b)=>(priority.test(b)?1:0)-(priority.test(a)?1:0));
-  return clean;
-}
-function extractReference(text){
-  const pats=[
-    /\b\d{4}\/BZP\s*\d{8}\/\d{2}\b/i,
-    /\b\d{4}\/S\s*\d{3}-\d{6}\b/i,
-    /(?:znak(?:\s*sprawy)?|nr\s*post[ęe]powania|numer\s*referencyjny|sygnatura)\s*[:\-]?\s*([A-Z0-9][A-Z0-9.\-\/]{3,30})/i
-  ];
-  for(const p of pats){const m=text.match(p); if(m) return (m[1]||m[0]).trim();}
-  return null;
-}
-function tidySubject(s){
-  s=s.trim().replace(/["„”]/g,'').replace(/\s+/g,' ');
-  // cut at sentence end or new "section" cue if the label match ran long
-  s=s.replace(/\s+(Przedmiot(?:em)?\s+zam[óo]wienia|Postepowanie|Post[ęe]powanie|Zamawiaj[ąa]cy|Tryb\b).*/i,'');
-  s=s.replace(/\.\s+[A-ZĄĆĘŁŃÓŚŹŻ].*/,''); // drop everything after first sentence boundary
-  if(s.length>140) s=s.slice(0,138).replace(/\s+\S*$/,'')+'…';
-  return s.trim();
-}
-function extractSubject(text){
-  // try line-based first (keeps natural boundary)
-  const lines=text.split('\n').map(l=>l.trim());
-  const lineLabel=/^(?:nazwa\s+(?:zam[óo]wienia|post[ęe]powania)|przedmiot(?:em)?\s+zam[óo]wienia|tytu[łl]\s+post[ęe]powania|dotyczy)\s*[:\-]?\s*(.+)$/i;
-  for(const ln of lines){
-    const m=ln.match(lineLabel);
-    if(m&&m[1]&&m[1].trim().length>=8) return tidySubject(m[1]);
+/* Extract per-page text + link annotations, then build full text and an ido->url map */
+async function loadReport(file){
+  const buf=await file.arrayBuffer();
+  const pdf=await pdfjsLib.getDocument({data:buf}).promise;
+  let full=''; const linkMap={};
+  for(let p=1;p<=pdf.numPages;p++){
+    const page=await pdf.getPage(p);
+    const c=await page.getTextContent();
+    full+=c.items.map(i=>i.str).join('\n')+'\n';
+    const annots=await page.getAnnotations();
+    for(const a of annots){
+      if(a.url){
+        const m=a.url.match(/\/przetargi\/(\d+)\//);
+        if(m && /ido=\d+/.test(a.url) && !/tresc-oryginalna|schowek|mode=print|\/map\/|podobne-oferty/.test(a.url)){
+          if(!linkMap[m[1]]) linkMap[m[1]]=a.url;
+        }
+      }
+    }
+    if(p%50===0) $('#progress').textContent=`Czytanie raportu… strona ${p}/${pdf.numPages}`;
   }
-  // fallback flat search
-  const flat=text.replace(/\s+/g,' ').trim();
-  const labels=[
-    /(?:nazwa\s+(?:zam[óo]wienia|post[ęe]powania))\s*[:\-]?\s*(.{8,200}?)(?=\s*(?:Przedmiot|Postepowanie|Post[ęe]powanie|Zamawiaj|Tryb|nr |znak)|\.\s|$)/i,
-    /(?:przedmiot(?:em)?\s+zam[óo]wienia(?:\s+(?:jest|s[ąa]))?)\s*[:\-]?\s*(.{8,200}?)(?=\.\s|$)/i,
-    /(?:dotyczy|tytu[łl]\s+post[ęe]powania)\s*[:\-]?\s*(.{8,200}?)(?=\.\s|$)/i,
-  ];
-  for(const p of labels){const m=flat.match(p); if(m&&m[1])return tidySubject(m[1]);}
-  const firstLine=lines.find(l=>l.length>25&&/[a-ząćęłńóśźż]/i.test(l)&&!/^https?:/i.test(l));
-  if(firstLine) return tidySubject(firstLine);
-  return null;
+  return {full, linkMap, name:file.name};
 }
 
-function scoreDoc(text,kws,wholeWord){
-  const low=text.toLowerCase();
-  let total=0; const found=[],missing=[],snippets=[];
+function field(chunk, label){
+  const re=new RegExp(label.replace(/[.*+?^${}()|[\]\\\/]/g,'\\$&')+'\\s*\\n+\\s*([^\\n]+)','i');
+  const m=chunk.match(re);
+  return m?m[1].trim():null;
+}
+
+/* split a report's full text into tender records */
+function splitRecords(full, linkMap){
+  const chunks = full.split(/(?=\nID:\s*\d+)/);
+  const recs=[];
+  for(const ch of chunks){
+    const m=ch.match(/ID:\s*(\d+)/);
+    if(!m) continue;
+    const id=m[1];
+    recs.push({
+      id,
+      subject: field(ch,'Przedmiot:'),
+      organizer: field(ch,'Organizator:'),
+      region: field(ch,'Województwo / powiat:'),
+      deadline: field(ch,'Termin składania:'),
+      link: linkMap[id]||null,
+      text: ch
+    });
+  }
+  return recs;
+}
+
+/* keyword scoring — exclude "Kod CPV" line so PV doesn't match CPV */
+function matchRecord(rec, kws, wholeWord){
+  const cleanText = rec.text.replace(/Kod CPV:[^\n]*/gi,' ');
+  const low = cleanText.toLowerCase();
+  const found=[];
   for(const k of kws){
-    const t=k.term.toLowerCase(); let re;
+    const t=k.toLowerCase(); let re;
     try{
       const body=escRe(t);
-      re=wholeWord?new RegExp(`(?<![\\p{L}\\p{N}])${body}(?![\\p{L}\\p{N}])`,'giu'):new RegExp(body,'giu');
-    }catch(e){re=new RegExp(escRe(t),'gi');}
-    const m=low.match(re); const count=m?m.length:0;
-    if(count>0){ total+=k.weight*(1+Math.log2(count)); found.push({term:k.term,weight:k.weight,count}); }
-    else missing.push({term:k.term,weight:k.weight});
+      re=wholeWord?new RegExp(`(?<![\\p{L}\\p{N}])${body}(?![\\p{L}\\p{N}])`,'iu'):new RegExp(body,'iu');
+    }catch(e){re=new RegExp(escRe(t),'i');}
+    if(re.test(low)) found.push(k);
   }
-  const strong=[...found].sort((a,b)=>b.weight-a.weight).slice(0,4);
-  for(const f of strong){
-    const idx=low.indexOf(f.term.toLowerCase()); if(idx<0) continue;
-    const start=Math.max(0,idx-70),end=Math.min(text.length,idx+f.term.length+90);
-    let raw=(start>0?'… ':'')+text.slice(start,end).trim()+(end<text.length?' …':'');
-    let frag=escapeHtml(raw);
-    const re=new RegExp(escRe(escapeHtml(f.term)),'gi');
-    frag=frag.replace(re,m=>`<mark>${m}</mark>`);
-    snippets.push(frag);
-  }
-  return {total,found,missing,snippets,
-    subject:extractSubject(text), links:extractLinks(text), ref:extractReference(text)};
+  return found;
 }
 
 $('#run').addEventListener('click',async()=>{
   const kws=parseKeywords();
   if(!kws.length){alert('Dodaj przynajmniej jedno słowo kluczowe.');return;}
-  if(!docs.length) return;
+  if(!files.length) return;
   const wholeWord=$('#whole').checked;
   const btn=$('#run'); btn.disabled=true; btn.innerHTML='<span class="spin"></span>Przetwarzanie…';
-  const scored=[];
-  for(const d of docs){
-    try{
-      const text=await extractText(d);
-      scored.push({name:d.name,size:d.size,ok:true,...scoreDoc(text,kws,wholeWord)});
-    }catch(e){
-      scored.push({name:d.name,size:d.size,ok:false,err:e.message,total:0,found:[],missing:kws,snippets:[],subject:null,links:[],ref:null});
+  $('#progress').textContent='Wczytywanie…';
+  allMatches=[];
+  let totalRecords=0;
+  try{
+    for(const f of files){
+      const rep=await loadReport(f);
+      const recs=splitRecords(rep.full, rep.linkMap);
+      totalRecords+=recs.length;
+      for(const r of recs){
+        const found=matchRecord(r,kws,wholeWord);
+        if(found.length){ r.found=found; r.source=rep.name; allMatches.push(r); }
+      }
     }
+  }catch(e){
+    $('#progress').textContent='Błąd odczytu: '+e.message;
+    btn.disabled=false; btn.textContent='Przeszukaj raport'; return;
   }
-  scored.sort((a,b)=>b.total-a.total);
-  const max=Math.max(...scored.map(s=>s.total),0.0001);
-  renderResults(scored,max,kws.length);
-  btn.disabled=false; btn.textContent='Przeszukaj i oceń';
+  $('#progress').textContent=`Przeskanowano ${totalRecords} postępowań.`;
+  $('#meta').textContent=`${allMatches.length} ${plural(allMatches.length,'trafienie','trafienia','trafień')} z ${totalRecords}`;
+  $('#filterbar').style.display = allMatches.length?'flex':'none';
+  renderMatches();
+  btn.disabled=false; btn.textContent='Przeszukaj raport';
 });
 
-function renderResults(scored,max,kwCount){
-  $('#meta').textContent=`${scored.length} ${plural(scored.length,'dokument','dokumenty','dokumentów')} · ${kwCount} ${plural(kwCount,'słowo','słowa','słów')} kluczowych`;
-  $('#results').innerHTML=scored.map((s,i)=>{
-    const pct=Math.round((s.total/max)*100);
-    const cls=pct>=66?'s-good':pct>=33?'s-mid':'s-low';
-    const topCls=i===0&&s.total>0?'rank-top':'';
-    const subject=s.subject?escapeHtml(s.subject):(s.ok?'<span style="color:var(--faint)">Nie wykryto nazwy zamówienia</span>':'<span style="color:var(--low)">Nie udało się odczytać PDF</span>');
-    const mainLink=s.links[0];
-    const linkHtml=mainLink
-      ? `<a class="linkpill" href="${escapeHtml(mainLink)}" target="_blank" rel="noopener">otwórz postępowanie ↗</a>`
-      : `<span class="nolink">brak linku w pliku</span>`;
-    const refHtml=s.ref?`<span class="qi"><span>nr:</span><b>${escapeHtml(s.ref)}</b></span>`:'';
-    const kwHtml=[
-      ...s.found.sort((a,b)=>b.weight-a.weight).map(f=>`<span class="kw found"><b>${escapeHtml(f.term)}</b> ×${f.count}</span>`),
-      ...s.missing.map(m=>`<span class="kw miss">${escapeHtml(m.term)}</span>`)
-    ].join('');
-    const snipHtml=s.ok
-      ?(s.snippets.length?s.snippets.map(sn=>`<div class="snip">${sn}</div>`).join(''):`<div class="snip" style="color:var(--faint)">Brak trafień słów kluczowych w treści.</div>`)
-      :`<div class="snip" style="color:var(--low)">Plik może być skanem (obrazem) bez warstwy tekstowej. ${escapeHtml(s.err||'')}</div>`;
-    const extraLinks=s.links.length>1?`<div class="alllinks"><div class="section-lbl">Wszystkie linki w pliku</div>${s.links.map(l=>`<a href="${escapeHtml(l)}" target="_blank" rel="noopener">${escapeHtml(l)}</a>`).join('')}</div>`:'';
+function currentSorted(){
+  let list=[...allMatches];
+  const q=$('#textfilter').value.trim().toLowerCase();
+  if(q) list=list.filter(r=>(`${r.subject||''} ${r.organizer||''} ${r.region||''}`).toLowerCase().includes(q));
+  const sort=$('#sortsel').value;
+  if(sort==='hits') list.sort((a,b)=>b.found.length-a.found.length || (a.deadline||'').localeCompare(b.deadline||''));
+  else if(sort==='termin') list.sort((a,b)=>(a.deadline||'9999').localeCompare(b.deadline||'9999'));
+  else if(sort==='woj') list.sort((a,b)=>(a.region||'').localeCompare(b.region||'','pl'));
+  return list;
+}
+
+function renderMatches(){
+  const list=currentSorted();
+  if(!list.length){
+    $('#results').innerHTML=`<div class="empty"><div class="lead">Brak dopasowań</div><div>Żadne postępowanie nie pasuje do bieżących słów kluczowych lub filtra.</div></div>`;
+    return;
+  }
+  $('#results').innerHTML=list.map((r,i)=>{
+    const top=i===0;
+    const subject=r.subject?escapeHtml(r.subject):'<span style="color:var(--faint)">(brak nazwy)</span>';
+    const kw=r.found.map(k=>`<span class="kw">${escapeHtml(k)}</span>`).join('');
+    const facts=[
+      r.organizer?`<span class="f"><b>${escapeHtml(r.organizer)}</b></span>`:'',
+      r.region?`<span class="f">${escapeHtml(r.region)}</span>`:'',
+      r.deadline?`<span class="f">termin: <b>${escapeHtml(r.deadline)}</b></span>`:'',
+      `<span class="f">ID: ${escapeHtml(r.id)}</span>`
+    ].filter(Boolean).join('');
+    const link=r.link?`<a class="linkpill" href="${escapeHtml(r.link)}" target="_blank" rel="noopener">otwórz ogłoszenie ↗</a>`:`<span class="nolink">brak linku</span>`;
+    const desc=descSnippet(r);
     return `
-    <div class="doc ${topCls}">
-      <div class="doc-head" onclick="if(event.target.closest('a'))return; this.parentNode.classList.toggle('open')">
-        <div class="rankno">${i+1}</div>
-        <div class="doc-main">
-          <div class="doc-subject">${subject}</div>
-          <div class="doc-fn">${escapeHtml(s.name)}</div>
-          <div class="doc-quick">
-            <span class="qi">${linkHtml}</span>
-            ${refHtml}
-            <span class="qi"><b>${s.found.length}</b>/${kwCount} słów</span>
-          </div>
+    <div class="tender ${top?'top':''}">
+      <div class="t-head">
+        <div class="t-rank">${i+1}</div>
+        <div class="t-main">
+          <div class="t-subject">${subject}</div>
+          <div class="t-facts">${facts}</div>
+          <div class="t-kw">${kw}</div>
         </div>
-        <div class="score"><div class="num ${cls}">${pct}</div><div class="lbl">wynik</div></div>
-        <div class="chev">▶</div>
+        <div class="t-side">
+          <div class="hitcount">${r.found.length}<span>trafień</span></div>
+          ${link}
+        </div>
       </div>
-      <div class="doc-body">
-        <div class="section-lbl">Dopasowanie słów kluczowych</div>
-        <div class="kwrow">${kwHtml}</div>
-        <div class="section-lbl">Fragmenty z trafieniami</div>
-        ${snipHtml}
-        ${extraLinks}
-      </div>
+      ${desc?`<div class="t-expand" onclick="this.parentNode.classList.toggle('open')">pokaż / ukryj opis</div><div class="t-desc">${desc}</div>`:''}
     </div>`;
   }).join('');
-  const first=$('#results .doc'); if(first) first.classList.add('open');
 }
+
+function descSnippet(r){
+  const m=r.text.match(/Opis:\s*\n+([\s\S]{0,700})/i);
+  let txt=m?m[1]:'';
+  txt=txt.split(/\n(?:Termin składania:|Wymagania:|Miejsce i termin)/)[0];
+  txt=txt.replace(/\s*\n\s*/g,' ').trim();
+  if(!txt) return '';
+  if(txt.length>600) txt=txt.slice(0,598).replace(/\s+\S*$/,'')+'…';
+  let out=escapeHtml(txt);
+  for(const k of r.found){
+    try{ out=out.replace(new RegExp(`(?<![\\p{L}\\p{N}])(${escRe(escapeHtml(k))})(?![\\p{L}\\p{N}])`,'giu'),'<mark>$1</mark>'); }catch(e){}
+  }
+  return out;
+}
+
+$('#textfilter').addEventListener('input',renderMatches);
+$('#sortsel').addEventListener('change',renderMatches);
+
 function plural(n,one,few,many){if(n===1)return one;const t=n%10,h=n%100;if(t>=2&&t<=4&&!(h>=12&&h<=14))return few;return many;}
 </script>
 </body>
