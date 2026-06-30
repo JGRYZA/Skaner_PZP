@@ -75,6 +75,19 @@
   .tender.top{border-color:var(--blue); box-shadow:0 0 0 1px var(--blue)}
   .tender.inv.top{border-color:var(--amber); box-shadow:0 0 0 1px var(--amber)}
   .t-head{display:flex; align-items:flex-start; gap:14px; padding:14px 16px}
+  .t-check{margin-top:3px}
+  .t-check input{width:18px; height:18px; accent-color:var(--blue); cursor:pointer}
+  .t-check{margin-top:3px}
+  .t-check input{width:18px; height:18px; accent-color:var(--blue); cursor:pointer}
+  .actionbar{position:sticky; top:0; z-index:5; background:var(--navy); color:#fff; border-radius:8px; padding:12px 16px; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+  .actionbar.hidden{display:none}
+  .actionbar .ab-info{font-size:13.5px}
+  .actionbar .ab-info b{font-size:15px}
+  .actionbar .ab-btns{display:flex; gap:8px; flex-wrap:wrap}
+  .ab-btn{background:var(--blue); color:#fff; border:none; border-radius:6px; padding:8px 14px; font-size:13.5px; font-weight:600; cursor:pointer}
+  .ab-btn:hover{background:var(--cyan)}
+  .ab-btn.ghost{background:transparent; border:1px solid rgba(255,255,255,.35); color:#fff}
+  .ab-btn.ghost:hover{background:rgba(255,255,255,.12)}
   .t-rank{font-size:13px; font-weight:600; color:#fff; background:var(--faint); border-radius:12px; min-width:30px; height:22px; display:flex; align-items:center; justify-content:center; margin-top:2px}
   .tender.top .t-rank{background:var(--blue)}
   .tender.inv.top .t-rank{background:var(--amber)}
@@ -98,9 +111,80 @@
   .tender.open .t-desc{display:block}
   mark{background:var(--hit); padding:0 2px; border-radius:2px; color:var(--navy); font-weight:600}
 
+  /* selection */
+  .t-check{display:flex; align-items:center; padding-top:2px}
+  .t-check input{width:18px; height:18px; accent-color:var(--blue); cursor:pointer}
+  .actionbar{position:sticky; bottom:0; z-index:30; display:none; align-items:center; justify-content:space-between; gap:14px;
+    background:var(--navy); color:#fff; border-radius:8px; padding:12px 16px; margin-top:8px; box-shadow:0 6px 24px rgba(23,46,55,.25)}
+  .actionbar .sel{font-size:14px}
+  .actionbar .sel b{font-size:16px}
+  .actionbar .ab-btns{display:flex; gap:8px}
+  .actionbar button{border:none; border-radius:6px; padding:9px 14px; font-size:13.5px; font-weight:600; cursor:pointer}
+  .ab-primary{background:var(--cyan); color:#fff}
+  .ab-primary:hover{background:#0496c4}
+  .ab-ghost{background:transparent; color:#cfe6ef; border:1px solid #3a5a66 !important}
+  .ab-ghost:hover{background:#21404b}
+
+  .modal-bg{position:fixed; inset:0; background:rgba(23,46,55,.55); display:none; align-items:center; justify-content:center; z-index:50; padding:24px}
+  .modal-bg.show{display:flex}
+  .modal{background:#fff; border-radius:10px; max-width:760px; width:100%; max-height:86vh; display:flex; flex-direction:column; overflow:hidden}
+  .modal-head{padding:16px 20px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between}
+  .modal-head h3{margin:0; font-size:17px; color:var(--navy)}
+  .modal-head .x{cursor:pointer; color:var(--faint); font-size:22px; line-height:1; background:none; border:none}
+  .modal-body{padding:16px 20px; overflow:auto}
+  .modal-body p.lead{margin:0 0 12px; font-size:13.5px; color:var(--muted)}
+  .modal-body textarea{min-height:280px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12.5px; line-height:1.5}
+  .modal-foot{padding:14px 20px; border-top:1px solid var(--line); display:flex; gap:8px; justify-content:flex-end; align-items:center}
+  .copied{font-size:12.5px; color:var(--good); margin-right:auto; opacity:0; transition:opacity .2s}
+  .copied.show{opacity:1}
+
+  /* selection */
+  .t-check{display:flex; align-items:center; padding-top:1px}
+  .t-check input{width:18px; height:18px; accent-color:var(--blue); cursor:pointer}
+  .tender.sel{background:#f5fbfe; border-color:var(--cyan); box-shadow:0 0 0 1px var(--cyan)}
+  .selbar{position:sticky; top:0; z-index:20; display:none; align-items:center; gap:12px; flex-wrap:wrap;
+    background:var(--navy); color:#fff; border-radius:8px; padding:11px 16px; margin-bottom:14px; box-shadow:0 4px 16px rgba(23,46,55,.2)}
+  .selbar.on{display:flex}
+  .selbar .cnt{font-size:14px; font-weight:600}
+  .selbar .cnt b{color:var(--sky); font-size:16px}
+  .selbar .sp{flex:1}
+  .selbar button{border:none; border-radius:6px; padding:8px 14px; font-size:13.5px; font-weight:600; cursor:pointer; font-family:var(--sans)}
+  .selbar .prep{background:var(--cyan); color:#06303f}
+  .selbar .prep:hover{background:#3ec4ec}
+  .selbar .ghost{background:transparent; color:#cdd9dd; border:1px solid #3a525c}
+  .selbar .ghost:hover{background:#21424e; color:#fff}
+
+  /* modal */
+  .modal{position:fixed; inset:0; background:rgba(23,46,55,.55); display:none; align-items:center; justify-content:center; z-index:50; padding:24px}
+  .modal.show{display:flex}
+  .modal-box{background:#fff; border-radius:10px; max-width:800px; width:100%; max-height:88vh; display:flex; flex-direction:column; overflow:hidden}
+  .modal-head{padding:16px 20px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between}
+  .modal-head h3{margin:0; font-size:17px; color:var(--navy)}
+  .modal-head .x{border:none; background:none; font-size:24px; color:var(--faint); cursor:pointer; line-height:1}
+  .modal-body{padding:16px 20px; overflow:auto}
+  .modal-body p.lead{margin:0 0 12px; font-size:13.5px; color:var(--muted); line-height:1.5}
+  .modal-body textarea{width:100%; min-height:300px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; line-height:1.55; border:1px solid var(--line); border-radius:6px; padding:10px}
+  .modal-foot{padding:14px 20px; border-top:1px solid var(--line); display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap}
+  .modal-foot button{border:none; border-radius:6px; padding:10px 16px; font-size:14px; font-weight:600; cursor:pointer}
+  .modal-foot .copy{background:var(--blue); color:#fff} .modal-foot .copy:hover{background:#0a6ea1}
+  .modal-foot .copy.done{background:var(--good)}
+  .modal-foot .sec{background:var(--page); color:var(--ink); border:1px solid var(--line)}
+
   footer{margin-top:46px; padding-top:14px; border-top:1px solid var(--line); font-size:12px; color:var(--faint); text-align:center}
   .spin{display:inline-block; width:14px; height:14px; border:2px solid #fff; border-top-color:transparent; border-radius:50%; animation:sp .7s linear infinite; vertical-align:-2px; margin-right:7px}
   @keyframes sp{to{transform:rotate(360deg)}}
+
+  .modal-bg{position:fixed; inset:0; background:rgba(23,46,55,.55); z-index:50; display:none; align-items:center; justify-content:center; padding:24px}
+  .modal-bg.show{display:flex}
+  .modal{background:#fff; border-radius:10px; max-width:760px; width:100%; max-height:86vh; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.3)}
+  .modal-head{padding:18px 20px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between}
+  .modal-head h3{margin:0; font-size:17px; color:var(--navy)}
+  .modal-head .x{cursor:pointer; color:var(--faint); font-size:22px; line-height:1; border:none; background:none}
+  .modal-body{padding:18px 20px; overflow:auto}
+  .modal-body p.lead{margin:0 0 12px; font-size:13.5px; color:var(--muted)}
+  .modal-body textarea{min-height:300px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12.5px; line-height:1.5}
+  .modal-foot{padding:14px 20px; border-top:1px solid var(--line); display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap}
+  .copied{color:var(--good); font-size:13px; align-self:center; margin-right:auto}
 </style>
 </head>
 <body>
@@ -165,16 +249,66 @@
         </select>
       </div>
 
+      <div class="selbar" id="selbar">
+        <span class="cnt">Zaznaczono: <b id="selcnt">0</b></span>
+        <span class="sp"></span>
+        <button class="prep" id="prepBtn">Przygotuj do analizy →</button>
+        <button class="ghost" id="selClear">Odznacz wszystkie</button>
+      </div>
+
       <div id="results">
         <div class="empty">
           <div class="lead">Brak wyników</div>
           <div>Wgraj raport i kliknij „Przeszukaj raport”, aby zobaczyć dopasowane pozycje w podziale na zakładki.</div>
         </div>
       </div>
+
+      <div class="actionbar" id="actionbar">
+        <div class="sel">Zaznaczono: <b id="selcount">0</b> <span id="selword">postępowań</span> do analizy</div>
+        <div class="ab-btns">
+          <button class="ab-ghost" id="selclear">Odznacz wszystkie</button>
+          <button class="ab-primary" id="genprompt">Przygotuj do analizy →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="modalbg">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>Pakiet do analizy — skopiuj i wklej Claude'owi</h3>
+        <button class="x" id="modalx">×</button>
+      </div>
+      <div class="modal-body">
+        <p class="lead">Skopiuj poniższy tekst i wklej go w rozmowie z Claude (claude.ai). Claude otworzy każdy link i zwróci zwięzłe streszczenie z terminem, wadium, warunkami wobec wykonawcy, kryteriami oceny, zabezpieczeniem i wartością.</p>
+        <textarea id="prompttext" spellcheck="false" readonly></textarea>
+      </div>
+      <div class="modal-foot">
+        <span class="copied" id="copied">✓ skopiowano do schowka</span>
+        <button class="ab-ghost" style="border:1px solid var(--line) !important;color:var(--muted);background:#fff" id="modalclose">Zamknij</button>
+        <button class="ab-primary" id="copybtn">Kopiuj do schowka</button>
+      </div>
     </div>
   </div>
 
   <footer>Energynat Obrót · Skaner przetargów — narzędzie wewnętrzne. Działa w całości w przeglądarce; żaden plik nie jest wysyłany na serwer.</footer>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>Pakiet do analizy — wklej Claude'owi</h3>
+      <button class="x" id="modalX">×</button>
+    </div>
+    <div class="modal-body">
+      <p class="lead">Skopiuj poniższy tekst i wklej go w rozmowie z Claude (lub Claude w przeglądarce). Claude otworzy każdy link i przygotuje streszczenie: termin, wadium, warunki wobec wykonawcy, kryteria oceny, zabezpieczenie i wartość.</p>
+      <textarea id="promptArea" spellcheck="false" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="sec" id="modalClose">Zamknij</button>
+      <button class="copy" id="copyBtn">Kopiuj do schowka</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -183,6 +317,7 @@ const $ = s => document.querySelector(s);
 let files=[];
 let buckets={przetarg:[],inwestycja:[],zlecenie:[],oferta:[]};
 let activeTab='przetarg';
+let selected=new Map(); // id -> record
 
 const DEFAULT_KW=`fotowoltaika
 PV
@@ -452,6 +587,7 @@ function renderTab(){
     return `
     <div class="tender ${isInv?'inv':''} ${top?'top':''}">
       <div class="t-head">
+        <div class="t-check"><input type="checkbox" data-id="${escapeHtml(r.id)}" ${selected.has(r.id)?'checked':''} title="Zaznacz do analizy"></div>
         <div class="t-rank">${i+1}</div>
         <div class="t-main">
           <div class="t-subject">${subject}</div>
@@ -466,6 +602,22 @@ function renderTab(){
       ${desc?`<div class="t-expand" onclick="this.parentNode.classList.toggle('open')">pokaż / ukryj opis</div><div class="t-desc">${desc}</div>`:''}
     </div>`;
   }).join('');
+  // wire checkboxes
+  $('#results').querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>{
+    cb.addEventListener('change',()=>{
+      const id=cb.dataset.id;
+      const rec=findRec(id);
+      if(cb.checked && rec) selected.set(id,rec); else selected.delete(id);
+      updateActionBar();
+    });
+  });
+}
+
+function findRec(id){
+  for(const t of ['przetarg','inwestycja','zlecenie','oferta']){
+    const r=buckets[t].find(x=>x.id===id); if(r) return r;
+  }
+  return null;
 }
 
 function descSnippet(r){
@@ -485,6 +637,67 @@ function descSnippet(r){
 $('#textfilter').addEventListener('input',renderTab);
 $('#wojsel').addEventListener('change',renderTab);
 $('#sortsel').addEventListener('change',renderTab);
+
+/* ---- selection + prompt generation ---- */
+function updateActionBar(){
+  const n=selected.size;
+  $('#actionbar').style.display = n?'flex':'none';
+  $('#selcount').textContent=n;
+  $('#selword').textContent=plural(n,'pozycję','pozycje','pozycji');
+}
+$('#selclear').addEventListener('click',()=>{
+  selected.clear(); updateActionBar();
+  $('#results').querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>cb.checked=false);
+});
+
+function buildPrompt(){
+  const items=[...selected.values()];
+  const lines=[];
+  lines.push('Jesteś analitykiem zamówień publicznych. Otwórz każdy z poniższych linków do postępowania i przygotuj dla każdego zwięzłe streszczenie po polsku.');
+  lines.push('');
+  lines.push('Dla KAŻDEGO postępowania podaj w punktach:');
+  lines.push('• Nazwa zamówienia i zamawiający');
+  lines.push('• Termin składania ofert (data i godzina)');
+  lines.push('• Wadium (kwota i forma; napisz „brak”, jeśli nie wymagane)');
+  lines.push('• Warunki udziału / wymagania wobec wykonawcy (zdolność techniczna, doświadczenie, personel, uprawnienia)');
+  lines.push('• Kryteria oceny ofert (z wagami, jeśli podane)');
+  lines.push('• Zabezpieczenie należytego wykonania umowy / gwarancje');
+  lines.push('• Szacunkowa wartość lub budżet (jeśli dostępne)');
+  lines.push('• Inne istotne uwagi (termin realizacji, wizja lokalna, podział na części)');
+  lines.push('');
+  lines.push('Jeśli któraś informacja nie jest dostępna na stronie, napisz „nie podano”. Na końcu zrób krótką tabelę zbiorczą: nazwa | termin | wadium | wartość.');
+  lines.push('Pomiń treści marketingowe i nawigację. Bądź konkretny i rzeczowy.');
+  lines.push('');
+  lines.push('=== POSTĘPOWANIA DO ANALIZY ('+items.length+') ===');
+  items.forEach((r,i)=>{
+    lines.push('');
+    lines.push(`${i+1}. ${r.subject||'(brak nazwy)'}`);
+    if(r.organizer) lines.push(`   Zamawiający: ${r.organizer}`);
+    if(r.region) lines.push(`   Lokalizacja: ${r.region}`);
+    if(r.deadline) lines.push(`   Termin (z raportu): ${r.deadline}`);
+    if(r.value) lines.push(`   Orientacyjna wartość (z raportu): ${r.value.label}`);
+    if(r.platform) lines.push(`   Platforma: ${r.platform}`);
+    lines.push(`   LINK: ${r.link||'(brak bezpośredniego linku)'}`);
+  });
+  return lines.join('\n');
+}
+
+$('#genprompt').addEventListener('click',()=>{
+  if(!selected.size) return;
+  $('#prompttext').value=buildPrompt();
+  $('#modalbg').classList.add('show');
+});
+function closeModal(){$('#modalbg').classList.remove('show');$('#copied').classList.remove('show');}
+$('#modalx').addEventListener('click',closeModal);
+$('#modalclose').addEventListener('click',closeModal);
+$('#modalbg').addEventListener('click',e=>{if(e.target===$('#modalbg'))closeModal();});
+$('#copybtn').addEventListener('click',async()=>{
+  const ta=$('#prompttext');
+  try{ await navigator.clipboard.writeText(ta.value); }
+  catch(e){ ta.removeAttribute('readonly'); ta.select(); document.execCommand('copy'); ta.setAttribute('readonly','true'); }
+  $('#copied').classList.add('show');
+  setTimeout(()=>$('#copied').classList.remove('show'),2000);
+});
 </script>
 </body>
 </html>
