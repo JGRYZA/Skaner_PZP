@@ -8,7 +8,7 @@
 <style>
   :root{
     --navy:#172E37; --blue:#0080BF; --cyan:#03ACDF; --sky:#56D0FF;
-    --blue-soft:#e2f1f8; --sky-soft:#eaf8ff;
+    --blue-soft:#e2f1f8; --sky-soft:#eaf8ff; --amber:#9a6a1f; --amber-soft:#f7eede;
     --ink:#1d2a30; --muted:#5f6f76; --faint:#93a1a7;
     --line:#dde6ea; --line-soft:#eaf0f2;
     --page:#f3f6f7; --card:#ffffff;
@@ -28,7 +28,7 @@
 
   header.intro{padding:24px 0 4px}
   header.intro h1{font-size:26px; font-weight:600; margin:0 0 6px; color:var(--navy)}
-  header.intro p{font-size:14.5px; color:var(--muted); margin:0; max-width:760px}
+  header.intro p{font-size:14.5px; color:var(--muted); margin:0; max-width:780px}
 
   .grid{display:grid; grid-template-columns:320px 1fr; gap:26px; margin-top:24px; align-items:start}
   @media(max-width:860px){.grid{grid-template-columns:1fr}}
@@ -38,9 +38,10 @@
   .panel .hint{font-size:12.5px; color:var(--faint); margin:0 0 14px; line-height:1.45}
 
   textarea{width:100%; min-height:200px; resize:vertical; padding:10px; font-family:var(--sans); font-size:14px; line-height:1.6; border:1px solid var(--line); border-radius:6px; background:#fff; color:var(--ink)}
-  textarea:focus,input:focus{outline:none; border-color:var(--blue)}
+  textarea:focus,input:focus,select:focus{outline:none; border-color:var(--blue)}
   .toggle{display:flex; gap:8px; align-items:flex-start; margin-top:12px; font-size:13px; color:var(--muted)}
   .toggle input{width:16px; height:16px; accent-color:var(--blue); margin-top:1px}
+  .saved{font-size:11.5px; color:var(--good); margin-top:8px; height:14px}
 
   .drop{margin-top:6px; border:1.5px dashed var(--line); border-radius:8px; padding:24px 16px; text-align:center; background:#fbfdfe; cursor:pointer; transition:.15s}
   .drop:hover,.drop.over{border-color:var(--blue); background:var(--sky-soft)}
@@ -53,11 +54,17 @@
   .btn:disabled{background:var(--faint); cursor:not-allowed}
   .btn.ghost{background:transparent; color:var(--muted); border:1px solid var(--line); margin-top:10px}
   .btn.ghost:hover{background:var(--page); color:var(--ink)}
+  .progress{font-size:12.5px; color:var(--muted); margin-top:8px; line-height:1.5}
 
-  .results-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:6px}
-  .results-head h2{font-size:19px; font-weight:600; margin:0; color:var(--navy)}
-  .results-head .meta{font-size:13px; color:var(--muted)}
-  .filterbar{display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 14px}
+  /* tabs */
+  .tabs{display:flex; gap:4px; border-bottom:2px solid var(--line); margin-bottom:16px; flex-wrap:wrap}
+  .tab{padding:9px 16px; font-size:14px; font-weight:600; color:var(--muted); cursor:pointer; border:none; background:none; border-bottom:2px solid transparent; margin-bottom:-2px}
+  .tab:hover{color:var(--ink)}
+  .tab.active{color:var(--blue); border-bottom-color:var(--blue)}
+  .tab .badge{display:inline-block; min-width:20px; padding:1px 6px; margin-left:6px; font-size:11.5px; border-radius:10px; background:var(--page); color:var(--muted); font-weight:600}
+  .tab.active .badge{background:var(--blue-soft); color:var(--blue)}
+
+  .filterbar{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px}
   .filterbar input{flex:1; min-width:160px; height:36px; padding:0 10px; border:1px solid var(--line); border-radius:6px; font-size:13.5px}
   .filterbar select{height:36px; padding:0 8px; border:1px solid var(--line); border-radius:6px; font-size:13.5px; background:#fff}
 
@@ -66,20 +73,24 @@
 
   .tender{background:var(--card); border:1px solid var(--line); border-radius:8px; margin-bottom:12px; overflow:hidden}
   .tender.top{border-color:var(--blue); box-shadow:0 0 0 1px var(--blue)}
+  .tender.inv.top{border-color:var(--amber); box-shadow:0 0 0 1px var(--amber)}
   .t-head{display:flex; align-items:flex-start; gap:14px; padding:14px 16px}
   .t-rank{font-size:13px; font-weight:600; color:#fff; background:var(--faint); border-radius:12px; min-width:30px; height:22px; display:flex; align-items:center; justify-content:center; margin-top:2px}
   .tender.top .t-rank{background:var(--blue)}
+  .tender.inv.top .t-rank{background:var(--amber)}
   .t-main{flex:1; min-width:0}
   .t-subject{font-size:15.5px; font-weight:600; color:var(--ink); line-height:1.35; margin-bottom:5px}
   .t-facts{display:flex; flex-wrap:wrap; gap:4px 16px; font-size:12.5px; color:var(--muted); margin-bottom:8px}
   .t-facts .f b{color:var(--ink); font-weight:600}
+  .t-facts .val{color:var(--amber); font-weight:600}
   .t-kw{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:4px}
   .kw{font-size:12px; padding:2px 9px; border-radius:11px; background:var(--blue-soft); border:1px solid #bfe3f2; color:#075e8a; font-weight:600}
   .t-side{display:flex; flex-direction:column; align-items:flex-end; gap:8px; min-width:120px}
   .hitcount{font-size:24px; font-weight:600; color:var(--good); line-height:1}
   .hitcount span{font-size:11px; color:var(--faint); font-weight:400; display:block; text-align:right; text-transform:uppercase; letter-spacing:.5px}
-  .linkpill{display:inline-flex; align-items:center; gap:5px; background:var(--blue); color:#fff; border-radius:6px; padding:6px 12px; font-size:12.5px; font-weight:600; text-decoration:none; white-space:nowrap}
+  .linkpill{display:inline-flex; align-items:center; gap:5px; background:var(--blue); color:#fff; border-radius:6px; padding:6px 12px; font-size:12.5px; font-weight:600; text-decoration:none; white-space:nowrap; text-align:center}
   .linkpill:hover{background:#0a6ea1}
+  .linkpill.amber{background:var(--amber)} .linkpill.amber:hover{background:#7d5616}
   .nolink{color:var(--faint); font-size:11.5px; font-style:italic}
   .t-expand{font-size:12.5px; color:var(--blue); cursor:pointer; padding:0 16px 12px; user-select:none}
   .t-expand:hover{text-decoration:underline}
@@ -90,7 +101,6 @@
   footer{margin-top:46px; padding-top:14px; border-top:1px solid var(--line); font-size:12px; color:var(--faint); text-align:center}
   .spin{display:inline-block; width:14px; height:14px; border:2px solid #fff; border-top-color:transparent; border-radius:50%; animation:sp .7s linear infinite; vertical-align:-2px; margin-right:7px}
   @keyframes sp{to{transform:rotate(360deg)}}
-  .progress{font-size:12.5px; color:var(--muted); margin-top:8px}
 </style>
 </head>
 <body>
@@ -104,37 +114,21 @@
   </div>
 
   <header class="intro">
-    <h1>Wyłap interesujące postępowania z raportu</h1>
-    <p>Wgraj dobowy raport PDF z platformy przetargowej. Narzędzie rozbije go na pojedyncze postępowania, dopasuje do Twoich słów kluczowych i pokaże tylko te trafione — z nazwą, organizatorem, województwem, terminem i linkiem prosto do ogłoszenia. Wszystko liczy się w tej przeglądarce.</p>
+    <h1>Przeszukaj raport i wyłap to, co istotne</h1>
+    <p>Wgraj dobowy raport PDF. Narzędzie rozbije go na pojedyncze pozycje, dopasuje do słów kluczowych i rozdzieli na zakładki: prowadzone postępowania, planowane inwestycje, zlecenia i oferty. Postępowania i zlecenia pokazują tylko te z bezpośrednim linkiem do platformy. Wszystko liczy się w tej przeglądarce.</p>
   </header>
 
   <div class="grid">
     <div>
       <div class="panel">
         <h2>Słowa kluczowe</h2>
-        <p class="hint">Jedno na linię. Wszystkie tak samo ważne. Postępowanie trafia na listę, jeśli pasuje choć jedno.</p>
-        <textarea id="kw" spellcheck="false">fotowoltaika
-PV
-farma PV
-instalacja PV
-OZE
-odnawialne źródła energii
-magazyn energii
-BESS
-klaster energii
-spółdzielnia energetyczna
-ciepłownictwo
-sieć ciepłownicza
-audyt energetyczny
-efektywność energetyczna
-przyłączenie
-stacja transformatorowa
-pompa ciepła
-biogazownia</textarea>
+        <p class="hint">Jedno na linię. Wszystkie tak samo ważne. Pozycja trafia na listę, jeśli pasuje choć jedno. Zapisują się automatycznie.</p>
+        <textarea id="kw" spellcheck="false"></textarea>
         <div class="toggle">
           <input type="checkbox" id="whole" checked>
           <label for="whole">Dopasuj całe słowa (zalecane — eliminuje fałszywe trafienia, np. „PV” w kodzie „CPV”)</label>
         </div>
+        <div class="saved" id="saved"></div>
       </div>
 
       <div class="panel" style="margin-top:18px">
@@ -153,22 +147,28 @@ biogazownia</textarea>
     </div>
 
     <div>
-      <div class="results-head">
-        <h2>Trafione postępowania</h2>
-        <span class="meta" id="meta"></span>
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-tab="przetarg">Postępowania <span class="badge" id="b-przetarg">0</span></button>
+        <button class="tab" data-tab="inwestycja">Inwestycje planowane <span class="badge" id="b-inwestycja">0</span></button>
+        <button class="tab" data-tab="zlecenie">Zlecenia <span class="badge" id="b-zlecenie">0</span></button>
+        <button class="tab" data-tab="oferta">Oferty <span class="badge" id="b-oferta">0</span></button>
       </div>
+
       <div class="filterbar" id="filterbar" style="display:none">
-        <input type="text" id="textfilter" placeholder="Filtruj po nazwie, organizatorze, województwie…">
+        <input type="text" id="textfilter" placeholder="Filtruj po nazwie, organizatorze…">
+        <select id="wojsel"><option value="">Wszystkie województwa</option></select>
         <select id="sortsel">
           <option value="hits">Sortuj: najwięcej trafień</option>
           <option value="termin">Sortuj: najbliższy termin</option>
           <option value="woj">Sortuj: województwo</option>
+          <option value="val">Sortuj: wartość (inwestycje)</option>
         </select>
       </div>
+
       <div id="results">
         <div class="empty">
           <div class="lead">Brak wyników</div>
-          <div>Wgraj raport i kliknij „Przeszukaj raport”, aby zobaczyć dopasowane postępowania.</div>
+          <div>Wgraj raport i kliknij „Przeszukaj raport”, aby zobaczyć dopasowane pozycje w podziale na zakładki.</div>
         </div>
       </div>
     </div>
@@ -180,16 +180,57 @@ biogazownia</textarea>
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 const $ = s => document.querySelector(s);
-let files = [];
-let allMatches = [];
+let files=[];
+let buckets={przetarg:[],inwestycja:[],zlecenie:[],oferta:[]};
+let activeTab='przetarg';
 
+const DEFAULT_KW=`fotowoltaika
+PV
+farma PV
+instalacja PV
+OZE
+odnawialne źródła energii
+magazyn energii
+BESS
+klaster energii
+spółdzielnia energetyczna
+ciepłownictwo
+sieć ciepłownicza
+audyt energetyczny
+efektywność energetyczna
+przyłączenie
+stacja transformatorowa
+pompa ciepła
+biogazownia`;
+
+/* ---- keyword persistence ---- */
+function loadKw(){
+  let v=null;
+  try{ v=localStorage.getItem('energynat_kw'); }catch(e){}
+  $('#kw').value = (v!==null && v!=='') ? v : DEFAULT_KW;
+  let ww=true;
+  try{ const w=localStorage.getItem('energynat_ww'); if(w!==null) ww=w==='1'; }catch(e){}
+  $('#whole').checked=ww;
+}
+function saveKw(){
+  try{
+    localStorage.setItem('energynat_kw',$('#kw').value);
+    localStorage.setItem('energynat_ww',$('#whole').checked?'1':'0');
+    const s=$('#saved'); s.textContent='✓ zapisano słowa kluczowe';
+    clearTimeout(saveKw._t); saveKw._t=setTimeout(()=>s.textContent='',1500);
+  }catch(e){ $('#saved').textContent='(nie udało się zapisać — tryb prywatny?)'; }
+}
+$('#kw').addEventListener('input',()=>{clearTimeout(saveKw._d);saveKw._d=setTimeout(saveKw,400);});
+$('#whole').addEventListener('change',saveKw);
+loadKw();
+
+/* ---- file intake ---- */
 const drop=$('#drop'), fileInput=$('#file');
 drop.addEventListener('click',()=>fileInput.click());
 ['dragover','dragenter'].forEach(e=>drop.addEventListener(e,ev=>{ev.preventDefault();drop.classList.add('over')}));
 ['dragleave','drop'].forEach(e=>drop.addEventListener(e,ev=>{ev.preventDefault();drop.classList.remove('over')}));
 drop.addEventListener('drop',ev=>handleFiles(ev.dataTransfer.files));
 fileInput.addEventListener('change',()=>handleFiles(fileInput.files));
-
 function handleFiles(list){
   for(const f of [...list].filter(f=>f.type==='application/pdf'||f.name.toLowerCase().endsWith('.pdf'))){
     if(files.some(d=>d.name===f.name&&d.size===f.size)) continue;
@@ -204,83 +245,117 @@ function renderFileList(){
   $('#run').disabled=false;
 }
 $('#clear').addEventListener('click',()=>{
-  files=[];allMatches=[];fileInput.value='';renderFileList();$('#progress').textContent='';
-  $('#filterbar').style.display='none';
-  $('#results').innerHTML=`<div class="empty"><div class="lead">Brak wyników</div><div>Wgraj raport i kliknij „Przeszukaj raport”, aby zobaczyć dopasowane postępowania.</div></div>`;
-  $('#meta').textContent='';
+  files=[];buckets={przetarg:[],inwestycja:[],zlecenie:[],oferta:[]};fileInput.value='';renderFileList();
+  $('#progress').textContent='';$('#filterbar').style.display='none';
+  ['przetarg','inwestycja','zlecenie','oferta'].forEach(t=>$('#b-'+t).textContent='0');
+  $('#results').innerHTML=`<div class="empty"><div class="lead">Brak wyników</div><div>Wgraj raport i kliknij „Przeszukaj raport”, aby zobaczyć dopasowane pozycje.</div></div>`;
 });
 
-function parseKeywords(){
-  return [...new Set($('#kw').value.split('\n').map(l=>l.trim()).filter(Boolean))];
-}
+function parseKeywords(){return [...new Set($('#kw').value.split('\n').map(l=>l.trim()).filter(Boolean))];}
 function escRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
 function escapeHtml(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 
-/* Extract per-page text + link annotations, then build full text and an ido->url map */
+/* ---- external platform detection ---- */
+const EXT_PLATFORMS=[
+  {re:/ezamowienia\.gov\.pl/i,name:'e-Zamówienia'},
+  {re:/bazakonkurencyjnosci\.funduszeeuropejskie\.gov\.pl/i,name:'Baza Konkurencyjności'},
+  {re:/platformazakupowa\.pl/i,name:'platformazakupowa.pl'},
+  {re:/oneplace\.marketplanet\.pl/i,name:'Marketplanet'},
+  {re:/[\w.-]*ezamawiajacy\.pl/i,name:'Marketplanet (ezamawiajacy)'},
+  {re:/[\w.-]*eb2b\.com\.pl/i,name:'eB2B'},
+  {re:/[\w.-]*logintrade\.net/i,name:'Logintrade'},
+  {re:/connect\.orlen\.pl/i,name:'Orlen Connect'},
+  {re:/oferty\.kghm\.com/i,name:'KGHM'},
+  {re:/swoz\.tauron\.pl/i,name:'TAURON SWOZ'},
+  {re:/swpp2?\.gkpge\.pl|gkpge\.pl/i,name:'PGE'},
+  {re:/e-propublico\.pl/i,name:'e-ProPublico'},
+  {re:/josephine|smartpzp/i,name:'SmartPZP / Josephine'},
+  {re:/e-zp\.[\w.-]+|\/procurements\//i,name:'e-ZP'},
+];
+function detectExternal(chunk){
+  const urls=(chunk.match(/https?:\/\/[^\s)\]"']+/gi)||[]).map(u=>u.replace(/[.,);:]+$/,'')).filter(u=>!/biznes-polska\.pl/i.test(u));
+  let best=null,plat=null;
+  for(const u of urls){const p=EXT_PLATFORMS.find(p=>p.re.test(u));if(!p)continue;if(!best||u.length>best.length){best=u;plat=p.name;}}
+  return best?{url:best,platform:plat}:null;
+}
+
+function field(chunk,label){
+  const re=new RegExp(label.replace(/[.*+?^${}()|[\]\\\/]/g,'\\$&')+'\\s*\\n+\\s*([^\\n]+)','i');
+  const m=chunk.match(re); return m?m[1].trim():null;
+}
+function classify(chunk){
+  const m=chunk.match(/Kategoria:\s*\n+\s*([^\n]+)/i);
+  const c=(m?m[1]:'').toLowerCase();
+  if(c.startsWith('inwestycja')) return 'inwestycja';
+  if(c.startsWith('oferta')) return 'oferta';
+  if(c.startsWith('zlecenie')) return 'zlecenie';
+  if(c.includes('przetarg')||c.includes('zapytanie')||c.includes('zamówien')||c.includes('zamowien')) return 'przetarg';
+  return null; // e.g. wyniki przetargów → skip
+}
+function investValue(chunk){
+  const m=chunk.match(/Orientacyjna wartość zamówienia:\s*\n+\s*([0-9][0-9 .,]*\s*(?:PLN|zł|EUR)?)/i);
+  if(!m) return null;
+  const raw=m[1].trim();
+  const num=parseFloat(raw.replace(/[^\d,]/g,'').replace(/\./g,'').replace(',','.'));
+  return {label:raw, num:isNaN(num)?0:num};
+}
+function investQuarter(chunk){
+  const m=chunk.match(/Przewidywane terminy wszczęcia[^\n]*\n+\s*([^\n]+)/i);
+  if(m) return m[1].trim();
+  const m2=chunk.match(/realizacji:\s*\n+\s*([^\n]+)/i);
+  return m2?m2[1].trim():null;
+}
+
+function buildRecord(chunk, type){
+  const id=(chunk.match(/ID:\s*(\d+)/)||[])[1] || (chunk.match(/\n\s*(\d{7,})\s*\n/)||[])[1] || '—';
+  const ext=detectExternal(chunk);
+  const rec={
+    id, type,
+    subject:(field(chunk,'Przedmiot:')||'').replace(/^INWESTYCJA PLANOWANA\s*/i,''),
+    organizer: field(chunk,'Organizator:') || field(chunk,'Inwestor:'),
+    region: field(chunk,'Województwo / powiat:'),
+    deadline: field(chunk,'Termin składania:'),
+    link: ext?ext.url:null,
+    platform: ext?ext.platform:null,
+    text: chunk
+  };
+  if(type==='inwestycja'){
+    rec.value=investValue(chunk);
+    rec.quarter=investQuarter(chunk);
+    // investments link via "Strona WWW" if no platform deep-link
+    if(!rec.link){ const www=field(chunk,'Strona WWW:'); if(www&&/^https?:/i.test(www)){rec.link=www; rec.platform=(www.match(/https?:\/\/([^/]+)/)||[])[1];} }
+  }
+  return rec;
+}
+
 async function loadReport(file){
   const buf=await file.arrayBuffer();
   const pdf=await pdfjsLib.getDocument({data:buf}).promise;
-  let full=''; const linkMap={};
+  let full='';
   for(let p=1;p<=pdf.numPages;p++){
     const page=await pdf.getPage(p);
     const c=await page.getTextContent();
     full+=c.items.map(i=>i.str).join('\n')+'\n';
-    const annots=await page.getAnnotations();
-    for(const a of annots){
-      if(a.url){
-        const m=a.url.match(/\/przetargi\/(\d+)\//);
-        if(m && /ido=\d+/.test(a.url) && !/tresc-oryginalna|schowek|mode=print|\/map\/|podobne-oferty/.test(a.url)){
-          if(!linkMap[m[1]]) linkMap[m[1]]=a.url;
-        }
-      }
-    }
     if(p%50===0) $('#progress').textContent=`Czytanie raportu… strona ${p}/${pdf.numPages}`;
   }
-  return {full, linkMap, name:file.name};
+  return full;
 }
 
-function field(chunk, label){
-  const re=new RegExp(label.replace(/[.*+?^${}()|[\]\\\/]/g,'\\$&')+'\\s*\\n+\\s*([^\\n]+)','i');
-  const m=chunk.match(re);
-  return m?m[1].trim():null;
-}
-
-/* split a report's full text into tender records */
-function splitRecords(full, linkMap){
-  const chunks = full.split(/(?=\nID:\s*\d+)/);
-  const recs=[];
-  for(const ch of chunks){
-    const m=ch.match(/ID:\s*(\d+)/);
-    if(!m) continue;
-    const id=m[1];
-    recs.push({
-      id,
-      subject: field(ch,'Przedmiot:'),
-      organizer: field(ch,'Organizator:'),
-      region: field(ch,'Województwo / powiat:'),
-      deadline: field(ch,'Termin składania:'),
-      link: linkMap[id]||null,
-      text: ch
-    });
-  }
-  return recs;
-}
-
-/* keyword scoring — exclude "Kod CPV" line so PV doesn't match CPV */
 function matchRecord(rec, kws, wholeWord){
-  const cleanText = rec.text.replace(/Kod CPV:[^\n]*/gi,' ');
-  const low = cleanText.toLowerCase();
+  const cleanText=rec.text.replace(/Kod CPV:[^\n]*/gi,' ');
+  const low=cleanText.toLowerCase();
   const found=[];
   for(const k of kws){
     const t=k.toLowerCase(); let re;
-    try{
-      const body=escRe(t);
-      re=wholeWord?new RegExp(`(?<![\\p{L}\\p{N}])${body}(?![\\p{L}\\p{N}])`,'iu'):new RegExp(body,'iu');
-    }catch(e){re=new RegExp(escRe(t),'i');}
+    try{const body=escRe(t); re=wholeWord?new RegExp(`(?<![\\p{L}\\p{N}])${body}(?![\\p{L}\\p{N}])`,'iu'):new RegExp(body,'iu');}
+    catch(e){re=new RegExp(escRe(t),'i');}
     if(re.test(low)) found.push(k);
   }
   return found;
 }
+
+// types where a direct external link is REQUIRED to show the item
+const LINK_REQUIRED={przetarg:true, zlecenie:true, inwestycja:false, oferta:false};
 
 $('#run').addEventListener('click',async()=>{
   const kws=parseKeywords();
@@ -288,66 +363,99 @@ $('#run').addEventListener('click',async()=>{
   if(!files.length) return;
   const wholeWord=$('#whole').checked;
   const btn=$('#run'); btn.disabled=true; btn.innerHTML='<span class="spin"></span>Przetwarzanie…';
-  $('#progress').textContent='Wczytywanie…';
-  allMatches=[];
-  let totalRecords=0;
+  buckets={przetarg:[],inwestycja:[],zlecenie:[],oferta:[]};
+  let totalRecords=0, matchedKw=0, noLink=0;
   try{
     for(const f of files){
-      const rep=await loadReport(f);
-      const recs=splitRecords(rep.full, rep.linkMap);
-      totalRecords+=recs.length;
-      for(const r of recs){
-        const found=matchRecord(r,kws,wholeWord);
-        if(found.length){ r.found=found; r.source=rep.name; allMatches.push(r); }
+      const full=await loadReport(f);
+      const chunks=full.split(/(?=\nID:\s*\d+)/);
+      for(const ch of chunks){
+        if(!/ID:\s*\d+/.test(ch.slice(0,40)) && !/\n\s*\d{7,}\s*\n/.test(ch.slice(0,80))) continue;
+        const type=classify(ch);
+        if(!type || !buckets[type]) continue;
+        totalRecords++;
+        const found=matchRecord({text:ch}, kws, wholeWord);
+        if(!found.length) continue;
+        matchedKw++;
+        const rec=buildRecord(ch, type);
+        if(LINK_REQUIRED[type] && !rec.link){ noLink++; continue; }
+        rec.found=found; buckets[type].push(rec);
       }
     }
   }catch(e){
     $('#progress').textContent='Błąd odczytu: '+e.message;
     btn.disabled=false; btn.textContent='Przeszukaj raport'; return;
   }
-  $('#progress').textContent=`Przeskanowano ${totalRecords} postępowań.`;
-  $('#meta').textContent=`${allMatches.length} ${plural(allMatches.length,'trafienie','trafienia','trafień')} z ${totalRecords}`;
-  $('#filterbar').style.display = allMatches.length?'flex':'none';
-  renderMatches();
+  const counts=Object.fromEntries(Object.entries(buckets).map(([k,v])=>[k,v.length]));
+  $('#progress').innerHTML=`Przeskanowano ${totalRecords} pozycji · ${matchedKw} pasuje do słów kluczowych · ${noLink} pominięto (brak bezpośredniego linku).<br>Postępowania: ${counts.przetarg} · Inwestycje: ${counts.inwestycja} · Zlecenia: ${counts.zlecenie} · Oferty: ${counts.oferta}`;
+  ['przetarg','inwestycja','zlecenie','oferta'].forEach(t=>$('#b-'+t).textContent=buckets[t].length);
+  $('#filterbar').style.display='flex';
+  rebuildWojFilter();
+  renderTab();
   btn.disabled=false; btn.textContent='Przeszukaj raport';
 });
 
-function currentSorted(){
-  let list=[...allMatches];
+/* ---- tabs ---- */
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active'); activeTab=t.dataset.tab;
+  $('#textfilter').value=''; $('#wojsel').value='';
+  rebuildWojFilter(); renderTab();
+}));
+
+function rebuildWojFilter(){
+  const sel=$('#wojsel'); const cur=sel.value;
+  const wojs=[...new Set(buckets[activeTab].map(r=>(r.region||'').split(',')[0].trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pl'));
+  sel.innerHTML='<option value="">Wszystkie województwa</option>'+wojs.map(w=>`<option value="${escapeHtml(w)}">${escapeHtml(w)}</option>`).join('');
+  if(wojs.includes(cur)) sel.value=cur;
+}
+
+function currentList(){
+  let list=[...buckets[activeTab]];
   const q=$('#textfilter').value.trim().toLowerCase();
   if(q) list=list.filter(r=>(`${r.subject||''} ${r.organizer||''} ${r.region||''}`).toLowerCase().includes(q));
+  const woj=$('#wojsel').value;
+  if(woj) list=list.filter(r=>(r.region||'').startsWith(woj));
   const sort=$('#sortsel').value;
-  if(sort==='hits') list.sort((a,b)=>b.found.length-a.found.length || (a.deadline||'').localeCompare(b.deadline||''));
+  if(sort==='hits') list.sort((a,b)=>b.found.length-a.found.length || (a.deadline||'9999').localeCompare(b.deadline||'9999'));
   else if(sort==='termin') list.sort((a,b)=>(a.deadline||'9999').localeCompare(b.deadline||'9999'));
   else if(sort==='woj') list.sort((a,b)=>(a.region||'').localeCompare(b.region||'','pl'));
+  else if(sort==='val') list.sort((a,b)=>((b.value&&b.value.num)||0)-((a.value&&a.value.num)||0));
   return list;
 }
 
-function renderMatches(){
-  const list=currentSorted();
+function renderTab(){
+  const list=currentList();
+  const isInv=activeTab==='inwestycja';
   if(!list.length){
-    $('#results').innerHTML=`<div class="empty"><div class="lead">Brak dopasowań</div><div>Żadne postępowanie nie pasuje do bieżących słów kluczowych lub filtra.</div></div>`;
+    const msg = buckets[activeTab].length ? 'Żadna pozycja nie pasuje do bieżącego filtra.' : 'Brak dopasowań w tej kategorii dla bieżących słów kluczowych.';
+    $('#results').innerHTML=`<div class="empty"><div class="lead">Brak pozycji</div><div>${msg}</div></div>`;
     return;
   }
   $('#results').innerHTML=list.map((r,i)=>{
     const top=i===0;
     const subject=r.subject?escapeHtml(r.subject):'<span style="color:var(--faint)">(brak nazwy)</span>';
     const kw=r.found.map(k=>`<span class="kw">${escapeHtml(k)}</span>`).join('');
-    const facts=[
-      r.organizer?`<span class="f"><b>${escapeHtml(r.organizer)}</b></span>`:'',
-      r.region?`<span class="f">${escapeHtml(r.region)}</span>`:'',
-      r.deadline?`<span class="f">termin: <b>${escapeHtml(r.deadline)}</b></span>`:'',
-      `<span class="f">ID: ${escapeHtml(r.id)}</span>`
-    ].filter(Boolean).join('');
-    const link=r.link?`<a class="linkpill" href="${escapeHtml(r.link)}" target="_blank" rel="noopener">otwórz ogłoszenie ↗</a>`:`<span class="nolink">brak linku</span>`;
+    let facts=[];
+    facts.push(r.organizer?`<span class="f"><b>${escapeHtml(r.organizer)}</b></span>`:'');
+    facts.push(r.region?`<span class="f">${escapeHtml(r.region)}</span>`:'');
+    if(isInv){
+      if(r.value) facts.push(`<span class="f val">${escapeHtml(r.value.label)}</span>`);
+      if(r.quarter) facts.push(`<span class="f">wszczęcie: <b>${escapeHtml(r.quarter)}</b></span>`);
+    }else{
+      if(r.deadline) facts.push(`<span class="f">termin: <b>${escapeHtml(r.deadline)}</b></span>`);
+    }
+    if(r.platform) facts.push(`<span class="f">${isInv?'źródło':'platforma'}: <b>${escapeHtml(r.platform)}</b></span>`);
+    facts.push(`<span class="f">ID: ${escapeHtml(r.id)}</span>`);
+    const link=r.link?`<a class="linkpill ${isInv?'amber':''}" href="${escapeHtml(r.link)}" target="_blank" rel="noopener">${isInv?'zobacz źródło':'otwórz: '+escapeHtml(r.platform||'platforma')} ↗</a>`:`<span class="nolink">brak linku</span>`;
     const desc=descSnippet(r);
     return `
-    <div class="tender ${top?'top':''}">
+    <div class="tender ${isInv?'inv':''} ${top?'top':''}">
       <div class="t-head">
         <div class="t-rank">${i+1}</div>
         <div class="t-main">
           <div class="t-subject">${subject}</div>
-          <div class="t-facts">${facts}</div>
+          <div class="t-facts">${facts.filter(Boolean).join('')}</div>
           <div class="t-kw">${kw}</div>
         </div>
         <div class="t-side">
@@ -363,7 +471,7 @@ function renderMatches(){
 function descSnippet(r){
   const m=r.text.match(/Opis:\s*\n+([\s\S]{0,700})/i);
   let txt=m?m[1]:'';
-  txt=txt.split(/\n(?:Termin składania:|Wymagania:|Miejsce i termin)/)[0];
+  txt=txt.split(/\n(?:Termin składania:|Wymagania:|Miejsce i termin|Uwagi:|Kontakt:)/)[0];
   txt=txt.replace(/\s*\n\s*/g,' ').trim();
   if(!txt) return '';
   if(txt.length>600) txt=txt.slice(0,598).replace(/\s+\S*$/,'')+'…';
@@ -374,10 +482,9 @@ function descSnippet(r){
   return out;
 }
 
-$('#textfilter').addEventListener('input',renderMatches);
-$('#sortsel').addEventListener('change',renderMatches);
-
-function plural(n,one,few,many){if(n===1)return one;const t=n%10,h=n%100;if(t>=2&&t<=4&&!(h>=12&&h<=14))return few;return many;}
+$('#textfilter').addEventListener('input',renderTab);
+$('#wojsel').addEventListener('change',renderTab);
+$('#sortsel').addEventListener('change',renderTab);
 </script>
 </body>
 </html>
